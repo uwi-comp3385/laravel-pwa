@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title>Laravel PWA Demo</title>
+        <meta name="theme-color" content="#34A5DA">
         <link rel="manifest" href="{{ asset('manifest.json') }}">
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     </head>
@@ -50,7 +51,20 @@
             <p>&copy; COMP3385 Web Dev Superstars Inc.</p>
             </div>
         </footer>
-
+        <script>
+            // Initialize the service worker
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.register('/sw.js', {
+                    scope: '/'
+                }).then(function (registration) {
+                    // Registration was successful
+                    console.log('Laravel PWA: ServiceWorker registration successful with scope: ', registration.scope);
+                }, function (err) {
+                    // registration failed :(
+                    console.log('Laravel PWA: ServiceWorker registration failed: ', err);
+                });
+            }
+        </script>
         <script src="{{ asset('js/app.js') }}"></script>
     </body>
 </html>

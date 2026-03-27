@@ -1,16 +1,3 @@
-// Register Service Worker
-if ('serviceWorker' in navigator) {
-    navigator.serviceWorker
-    .register('/js/service-worker.js')
-    .then(function(registration) {
-        console.log('Service Worker Registered');
-        return registration;
-    })
-    .catch(function(err) {
-        console.error('Unable to register service worker.', err);
-    });
-}
-
 // For Add To Home Screen (A2HS) button
 // Chrome Only for now
 let deferredPrompt;

@@ -1,6 +1,6 @@
 // This is based on the First Progressive Web App Tutorial by Google
 // https://codelabs.developers.google.com/codelabs/your-first-pwapp/
-const cacheName = 'Laravel-PWA-v2';
+const cacheName = 'Laravel-PWA-v4';
 const filesToCache = [
     '/',
     '/js/app.js',
@@ -28,14 +28,14 @@ self.addEventListener('activate', (e) => {
   console.log('[ServiceWorker] Activate');
   e.waitUntil((async () => {
     const cacheKeys = await caches.keys();
-    cacheKeys.map(async (key) => {
+    await Promise.all(cacheKeys.map(async (key) => {
       if (key !== cacheName) {
         console.log('[ServiceWorker] Removing old cache', key);
         await caches.delete(key);
       }
-    });
+    }));
+    await self.clients.claim();
   })());
-  return self.clients.claim();
 });
 
 
@@ -50,7 +50,8 @@ self.addEventListener('fetch', (e) => {
 //     ignoreVary: true
 //   }
   e.respondWith((async () => {
-    const r = await caches.match(e.request);
+    const cache = await caches.open(cacheName);
+    const r = await cache.match(e.request);
     console.log(`[Service Worker] Fetching resource: ${e.request.url}`);
     if (r) { return r; }
 
@@ -69,7 +70,7 @@ self.addEventListener('fetch', (e) => {
       // Eg, a fallback silhouette image for avatars.
       let url = e.request.url;
       let extension = url.split('.').pop();
-      console.log('URL: ', url);
+    //   console.log('URL: ', url);
 
       if (extension === 'jpg' || extension === 'png' || extension === 'webp') {
           const FALLBACK_IMAGE = `<svg xmlns="http://www.w3.org/2000/svg" width="200" height="180" stroke-linejoin="round">
@@ -86,7 +87,7 @@ self.addEventListener('fetch', (e) => {
           }));
       }
       const cache = await caches.open(cacheName);
-      const cachedResponse = await cache.match('offline');
+      const cachedResponse = await cache.match('/offline');
       return cachedResponse;
     }
   })());

@@ -1,9 +1,14 @@
 {
+    "id": "/",
     "name": "Demo Laravel Progressive Web App (PWA)",
     "short_name": "Laravel PWA",
     "description": "Demo Laravel Progressive Web App (PWA) used for COMP3385",
     "theme_color": "#34A5DA",
     "background_color": "#FFFFFF",
+    "scope": "/",
+    "start_url": "/",
+    "display": "standalone",
+    "orientation": "portrait",
     "icons": [
         {
           "src": "/images/android-launchericon-48-48.png",
@@ -23,15 +28,20 @@
         {
           "src": "/images/android-launchericon-192-192.png",
           "type": "image/png",
-          "sizes": "192x192"
+          "sizes": "192x192",
+          "purpose": "any"
+        },
+        {
+          "src": "/images/android-launchericon-192-192.png",
+          "type": "image/png",
+          "sizes": "192x192",
+          "purpose": "maskable"
         },
         {
           "src": "/images/android-launchericon-512-512.png",
           "type": "image/png",
-          "sizes": "512x512"
+          "sizes": "512x512",
+          "purpose": "any"
         }
-    ],
-    "start_url": "/",
-    "display": "standalone",
-    "orientation": "portrait"
+    ]
 }

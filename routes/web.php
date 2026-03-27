@@ -11,5 +11,5 @@ Route::get('/about', function () {
 });
 
 Route::get('/offline', function () {
-    return "You are currently offline";
+    return view('offline');
 });
